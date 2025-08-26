@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dun48tttnwlyj"]
+
+[ext_resource type="Script" uid="uid://cv5wr8xosyvur" path="res://entity/Entity.gd" id="1_hd64d"]
+
+[sub_resource type="CapsuleShape2D" id="1"]
+radius = 0.0
+height = 0.0
+
+[node name="body" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_hd64d")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -31)
+shape = SubResource("1")

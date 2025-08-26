@@ -1,0 +1,11 @@
+[gd_resource type="Shader" format=3 uid="uid://co74ixks877t4"]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float brightness = 0 ;
+
+
+void vertex(){
+	COLOR.a *= brightness;
+}"

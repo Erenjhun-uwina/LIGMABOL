@@ -1,0 +1,113 @@
+[gd_scene load_steps=16 format=3 uid="uid://db2wyavjo83br"]
+
+[ext_resource type="Texture2D" uid="uid://xaqb36yspe0" path="res://entity/assets/essence_spritesheet.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://4crvoqxahq4y" path="res://entity/assets/glow.png" id="2"]
+[ext_resource type="Script" uid="uid://clv1h4yqsyph5" path="res://entity/essence.gd" id="3"]
+[ext_resource type="Script" uid="uid://dysht60wdb0g8" path="res://components/scripts/movement.gd" id="4"]
+[ext_resource type="Script" uid="uid://cy1ymude61wwx" path="res://components/scripts/gravity.gd" id="5"]
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 34.0147
+
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("1")
+region = Rect2(80, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("1")
+region = Rect2(160, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("1")
+region = Rect2(0, 80, 80, 80)
+
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("1")
+region = Rect2(80, 80, 80, 80)
+
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("1")
+region = Rect2(160, 80, 80, 80)
+
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("1")
+region = Rect2(0, 160, 80, 80)
+
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource("1")
+region = Rect2(80, 160, 80, 80)
+
+[sub_resource type="SpriteFrames" id="10"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}, {
+"duration": 1.0,
+"texture": SubResource("18")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="essence" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 8
+collision_mask = 0
+platform_on_leave = 2
+script = ExtResource("3")
+
+[node name="glow" type="Sprite2D" parent="."]
+modulate = Color(1.6, 1.6, 1.2, 1)
+texture = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1.6, 1.6, 1.2, 1)
+sprite_frames = SubResource("10")
+frame = 9
+speed_scale = 2.0
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("4")
+body = NodePath("..")
+
+[node name="Gravity2d" type="Node" parent="." node_paths=PackedStringArray("movement")]
+script = ExtResource("5")
+strength = 0.025
+movement = NodePath("../Movement")

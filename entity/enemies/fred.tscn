@@ -1,0 +1,139 @@
+[gd_scene load_steps=19 format=3 uid="uid://bs0j0ff8flxav"]
+
+[ext_resource type="Script" uid="uid://dsfupa7vd662j" path="res://entity/enemies/scripts/fred.gd" id="1_2j5uk"]
+[ext_resource type="Script" uid="uid://dysht60wdb0g8" path="res://components/scripts/movement.gd" id="2_evmdn"]
+[ext_resource type="Script" uid="uid://cy1ymude61wwx" path="res://components/scripts/gravity.gd" id="3_8c772"]
+[ext_resource type="Texture2D" uid="uid://ws63r4be70f0" path="res://entity/assets/splat_spritesheet.png" id="5_gl0wj"]
+[ext_resource type="Script" uid="uid://depo10qo06mrb" path="res://entity/platform_detector.gd" id="5_x5xcu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vp73j"]
+size = Vector2(62, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcbis"]
+size = Vector2(61, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqwb1"]
+
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("5_gl0wj")
+region = Rect2(0, 0, 210, 100)
+
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("5_gl0wj")
+region = Rect2(210, 0, 210, 100)
+
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("5_gl0wj")
+region = Rect2(420, 0, 210, 100)
+
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("5_gl0wj")
+region = Rect2(0, 100, 210, 100)
+
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("5_gl0wj")
+region = Rect2(210, 100, 210, 100)
+
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("5_gl0wj")
+region = Rect2(420, 100, 210, 100)
+
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("5_gl0wj")
+region = Rect2(0, 200, 210, 100)
+
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("5_gl0wj")
+region = Rect2(210, 200, 210, 100)
+
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("5_gl0wj")
+region = Rect2(420, 200, 210, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xhuv7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("9")
+}, {
+"duration": 1.0,
+"texture": SubResource("10")
+}, {
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}],
+"loop": false,
+"name": &"splat",
+"speed": 8.0
+}]
+
+[node name="body" type="CharacterBody2D" node_paths=PackedStringArray("movement")]
+visible = false
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_2j5uk")
+movement = NodePath("Movement")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1, -2.5)
+shape = SubResource("RectangleShape2D_vp73j")
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("2_evmdn")
+body = NodePath("..")
+
+[node name="Gravity2d" type="Node" parent="." node_paths=PackedStringArray("movement")]
+script = ExtResource("3_8c772")
+movement = NodePath("../Movement")
+
+[node name="player_detector" type="Area2D" parent="."]
+process_priority = 10000000
+visible = false
+position = Vector2(1, -30)
+collision_layer = 0
+collision_priority = 100000.0
+input_pickable = false
+monitorable = false
+priority = 128.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detector"]
+process_priority = 100000000
+shape = SubResource("RectangleShape2D_xcbis")
+
+[node name="Platform_detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("5_x5xcu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform_detector"]
+shape = SubResource("RectangleShape2D_mqwb1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(41, -37)
+scale = Vector2(0.709524, 0.79)
+sprite_frames = SubResource("SpriteFrames_xhuv7")
+autoplay = "default"

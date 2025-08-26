@@ -1,0 +1,116 @@
+[gd_scene load_steps=4 format=3 uid="uid://4nm524eh4jv1"]
+
+[ext_resource type="Theme" uid="uid://bo871vijrb4iy" path="res://GUI/src/themes/SHITTTTTYYY_THEMES.tres" id="1_6qtyv"]
+[ext_resource type="Script" uid="uid://ch0ayn4yo84ca" path="res://GUI/scripts/pause_screen.gd" id="1_vtahr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aise2"]
+content_margin_left = 20.0
+content_margin_top = 40.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+border_width_left = 5
+border_width_top = 24
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.870588, 0.870588, 0.870588, 1)
+corner_detail = 1
+expand_margin_top = 20.0
+shadow_size = 451
+anti_aliasing = false
+
+[node name="pause_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_6qtyv")
+script = ExtResource("1_vtahr")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -399.5
+offset_top = -217.0
+offset_right = 399.5
+offset_bottom = 217.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aise2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 140
+text = "LIGMABOL"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="best_label" type="Label" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 40
+text = "best:99999999999999999999999"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="resume_btn" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "resume"
+
+[node name="restart_btn" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+text = "restart"
+
+[node name="controls" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "controls
+"
+
+[node name="exit_btn" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "exiit
+"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/GridContainer/resume_btn" to="." method="_on_resume_btn_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/GridContainer/restart_btn" to="." method="_on_restart_btn_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/exit_btn" to="." method="_on_exit_btn_pressed"]

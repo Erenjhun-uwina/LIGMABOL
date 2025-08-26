@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://q1su8o4bgxyr"]
+
+[ext_resource type="Script" uid="uid://c15ukwm4igyxs" path="res://level/scripts/area.gd" id="1_h4y3h"]
+[ext_resource type="Script" uid="uid://baj6lxk7mlr6e" path="res://level/scripts/platforms.gd" id="2_bmn7r"]
+[ext_resource type="PackedScene" uid="uid://be8tibhs17rjw" path="res://level/areas/spacing_platform.tscn" id="2_x8v5k"]
+[ext_resource type="PackedScene" uid="uid://db2wyavjo83br" path="res://entity/essence.tscn" id="4_p6ryi"]
+
+[node name="_Area" type="Marker2D" node_paths=PackedStringArray("platforms")]
+script = ExtResource("1_h4y3h")
+platforms = NodePath("platforms")
+
+[node name="platforms" type="Node2D" parent="."]
+script = ExtResource("2_bmn7r")
+
+[node name="spacing_platform" parent="platforms" instance=ExtResource("2_x8v5k")]
+position = Vector2(-156, -62)
+tile_w = 52
+end_point = 3172
+
+[node name="entities" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="essence2" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(336, 234)
+
+[node name="essence4" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(645, 505)
+
+[node name="essence8" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(1514, 350)
+
+[node name="essence10" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(1267, 192)
+
+[node name="essence14" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(977, 307)
+
+[node name="essence15" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(126, 290)
+
+[node name="essence16" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(350, 498)
+
+[node name="essence19" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(612, 214)
+
+[node name="essence23" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(1964, 111)
+
+[node name="essence24" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(1915, 77)
+
+[node name="essence29" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(2884, 407)
+
+[node name="essence30" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(3044, 214)
+
+[node name="essence31" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(2517, 402)
+
+[node name="essence41" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(2720, 203)
+
+[node name="essence42" parent="entities" instance=ExtResource("4_p6ryi")]
+position = Vector2(1872, 97)
+
+[node name="v_notifier" type="VisibleOnScreenNotifier2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(8.31992, 17.7946)
+scale = Vector2(0.468008, 0.920544)
+
+[connection signal="screen_entered" from="v_notifier" to="." method="_on_visible_on_screen_notifier_2d_screen_entered" flags=18]
+[connection signal="screen_exited" from="v_notifier" to="." method="_on_visible_on_screen_notifier_2d_screen_exited" flags=18]

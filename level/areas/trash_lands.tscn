@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=3 uid="uid://n5fdqo2kfec1"]
+
+[ext_resource type="Script" uid="uid://c15ukwm4igyxs" path="res://level/scripts/area.gd" id="1_qfgbt"]
+[ext_resource type="Script" uid="uid://baj6lxk7mlr6e" path="res://level/scripts/platforms.gd" id="2_v3s4v"]
+[ext_resource type="PackedScene" uid="uid://cltekrwtewqav" path="res://level/areas/platform.tscn" id="3_q0t8x"]
+[ext_resource type="PackedScene" uid="uid://23vla7d7q7fh" path="res://entity/enemies/fly.tscn" id="4_fwmcv"]
+[ext_resource type="PackedScene" uid="uid://db2wyavjo83br" path="res://entity/essence.tscn" id="5_st4sl"]
+
+[node name="_Area" type="Marker2D" node_paths=PackedStringArray("platforms")]
+script = ExtResource("1_qfgbt")
+platforms = NodePath("platforms")
+
+[node name="platforms" type="Node2D" parent="."]
+script = ExtResource("2_v3s4v")
+width = 2750
+
+[node name="platform" parent="platforms" instance=ExtResource("3_q0t8x")]
+position = Vector2(-2, 345)
+tile_w = 43
+end_point = 2750
+
+[node name="entities" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="fly" parent="entities" instance=ExtResource("4_fwmcv")]
+position = Vector2(170, 338)
+
+[node name="fly2" parent="entities" instance=ExtResource("4_fwmcv")]
+position = Vector2(907, 330)
+
+[node name="fly3" parent="entities" instance=ExtResource("4_fwmcv")]
+position = Vector2(1112, 330)
+
+[node name="fly4" parent="entities" instance=ExtResource("4_fwmcv")]
+position = Vector2(1500, 206)
+
+[node name="fly5" parent="entities" instance=ExtResource("4_fwmcv")]
+position = Vector2(1911, 330)
+
+[node name="fly6" parent="entities" instance=ExtResource("4_fwmcv")]
+position = Vector2(2598, 317)
+
+[node name="fly7" parent="entities" instance=ExtResource("4_fwmcv")]
+position = Vector2(2282, 35)
+
+[node name="fly8" parent="entities" instance=ExtResource("4_fwmcv")]
+position = Vector2(2405, 73)
+
+[node name="essence" parent="entities" instance=ExtResource("5_st4sl")]
+position = Vector2(172, 337)
+
+[node name="essence2" parent="entities" instance=ExtResource("5_st4sl")]
+position = Vector2(901, 331)
+
+[node name="essence3" parent="entities" instance=ExtResource("5_st4sl")]
+position = Vector2(1115, 331)
+
+[node name="essence4" parent="entities" instance=ExtResource("5_st4sl")]
+position = Vector2(1511, 345)
+
+[node name="essence5" parent="entities" instance=ExtResource("5_st4sl")]
+position = Vector2(1909, 330)
+
+[node name="essence6" parent="entities" instance=ExtResource("5_st4sl")]
+position = Vector2(2282, 353)
+
+[node name="essence7" parent="entities" instance=ExtResource("5_st4sl")]
+position = Vector2(2413, 340)
+
+[node name="essence8" parent="entities" instance=ExtResource("5_st4sl")]
+position = Vector2(2591, 312)
+
+[node name="v_notifier" type="VisibleOnScreenNotifier2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(18.5, 19)
+scale = Vector2(1.75, -1.5)
+metadata/_edit_lock_ = true
+
+[connection signal="screen_entered" from="v_notifier" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="v_notifier" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

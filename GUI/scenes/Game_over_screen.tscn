@@ -1,0 +1,127 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjcxujjfec6xo"]
+
+[ext_resource type="Theme" uid="uid://bo871vijrb4iy" path="res://GUI/src/themes/SHITTTTTYYY_THEMES.tres" id="1_8610s"]
+[ext_resource type="Script" uid="uid://i300iyymao8i" path="res://GUI/scripts/Game_over_screen.gd" id="2_3ugof"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7162"]
+bg_color = Color(0.364706, 0.364706, 0.364706, 1)
+
+[node name="Game_over" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(576, 324)
+size_flags_horizontal = 3
+theme = ExtResource("1_8610s")
+script = ExtResource("2_3ugof")
+
+[node name="main_con" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -446.5
+offset_top = -231.0
+offset_right = 446.5
+offset_bottom = 231.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_con"]
+layout_mode = 2
+alignment = 1
+
+[node name="title" type="Label" parent="main_con/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+theme_override_colors/font_color = Color(100, 57.4, 3.55, 1)
+theme_override_font_sizes/font_size = 100
+text = "ObliTeratED!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="score_con" type="PanelContainer" parent="main_con/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_v7162")
+
+[node name="MarginContainer" type="MarginContainer" parent="main_con/VBoxContainer/score_con"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_con/VBoxContainer/score_con/MarginContainer"]
+layout_mode = 2
+
+[node name="new_best_text" type="Label" parent="main_con/VBoxContainer/score_con/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 60
+text = "new Best!"
+horizontal_alignment = 1
+
+[node name="distance_label" type="Label" parent="main_con/VBoxContainer/score_con/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.94902, 0.94902, 0.94902, 1)
+theme_override_colors/font_outline_color = Color(0.439216, 0.439216, 0.439216, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 60
+text = "distance:"
+horizontal_alignment = 1
+
+[node name="distance" type="Label" parent="main_con/VBoxContainer/score_con/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 7
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 80
+text = "100
+"
+horizontal_alignment = 1
+
+[node name="btn_con" type="MarginContainer" parent="main_con/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_con/VBoxContainer/btn_con"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="play_again_btn" type="Button" parent="main_con/VBoxContainer/btn_con/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "PLAY again
+"
+
+[node name="home_btn" type="Button" parent="main_con/VBoxContainer/btn_con/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "HOME"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="button_up" from="main_con/VBoxContainer/btn_con/HBoxContainer/play_again_btn" to="." method="_on_play_again_btn_button_up"]
+[connection signal="button_up" from="main_con/VBoxContainer/btn_con/HBoxContainer/home_btn" to="." method="_on_home_btn_button_up"]

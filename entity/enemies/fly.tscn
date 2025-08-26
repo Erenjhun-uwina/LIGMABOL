@@ -1,0 +1,102 @@
+[gd_scene load_steps=12 format=3 uid="uid://23vla7d7q7fh"]
+
+[ext_resource type="Script" uid="uid://cqjr3jdo3abob" path="res://entity/enemies/fly.gd" id="1_1vh5y"]
+[ext_resource type="Script" uid="uid://dysht60wdb0g8" path="res://components/scripts/movement.gd" id="3_whs26"]
+[ext_resource type="PackedScene" uid="uid://cj8k3u74ubrtj" path="res://components/shadow_caster.tscn" id="5_0g4ma"]
+[ext_resource type="Texture2D" uid="uid://cmesq7s5lawd5" path="res://entity/assets/fly.png" id="6_144f2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4aay"]
+size = Vector2(51, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fobgg"]
+atlas = ExtResource("6_144f2")
+region = Rect2(0, 0, 90, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtl2w"]
+atlas = ExtResource("6_144f2")
+region = Rect2(90, 0, 90, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lv0e6"]
+atlas = ExtResource("6_144f2")
+region = Rect2(0, 45, 90, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_701ou"]
+atlas = ExtResource("6_144f2")
+region = Rect2(90, 45, 90, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5idkk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fobgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtl2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lv0e6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_701ou")
+}],
+"loop": true,
+"name": &"default",
+"speed": 18.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mmmbi"]
+size = Vector2(54, 39)
+
+[node name="fly" type="CharacterBody2D"]
+process_priority = 10000
+collision_layer = 16
+collision_mask = 4
+collision_priority = 1000.0
+floor_stop_on_slope = false
+script = ExtResource("1_1vh5y")
+glow_image = "res://entity/assets/glow.png"
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("body")]
+unique_name_in_owner = true
+script = ExtResource("3_whs26")
+body = NodePath("..")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, -3)
+shape = SubResource("RectangleShape2D_e4aay")
+disabled = true
+
+[node name="shadow_caster" parent="." instance=ExtResource("5_0g4ma")]
+position = Vector2(0, 8.34465e-07)
+
+[node name="shadow" parent="shadow_caster" index="0"]
+position = Vector2(-1.57895, -2.86102e-06)
+scale = Vector2(0.25, 0.230769)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(2.5, 32.25)
+scale = Vector2(8.65, 7.175)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_5idkk")
+autoplay = "default"
+frame_progress = 0.0235546
+
+[node name="player_detector" type="Area2D" parent="."]
+process_priority = 10000000
+position = Vector2(-1, -7)
+collision_layer = 16
+collision_priority = 100000.0
+input_pickable = false
+monitorable = false
+priority = 128.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detector"]
+process_priority = 100000000
+position = Vector2(-2, 1.5)
+shape = SubResource("RectangleShape2D_mmmbi")
+
+[connection signal="area_entered" from="player_detector" to="." method="_on_player_detector_area_entered" flags=18]
+
+[editable path="shadow_caster"]

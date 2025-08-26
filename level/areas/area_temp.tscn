@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0ueh8lq18anj"]
+
+[ext_resource type="Script" uid="uid://c15ukwm4igyxs" path="res://level/scripts/area.gd" id="1"]
+[ext_resource type="Script" uid="uid://baj6lxk7mlr6e" path="res://level/scripts/platforms.gd" id="2_32ym1"]
+
+[node name="_Area" type="Marker2D" node_paths=PackedStringArray("platforms")]
+script = ExtResource("1")
+platforms = NodePath("platforms")
+
+[node name="platforms" type="Node2D" parent="."]
+script = ExtResource("2_32ym1")
+
+[node name="entities" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="v_notifier" type="VisibleOnScreenNotifier2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(48.5, 61.5)
+scale = Vector2(4.75, -5.75)
+
+[connection signal="screen_entered" from="v_notifier" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="v_notifier" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

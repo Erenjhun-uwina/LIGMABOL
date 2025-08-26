@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=3 uid="uid://cqptvo5qmnbb"]
+
+[ext_resource type="PackedScene" uid="uid://djjay5fysrkl4" path="res://default_bg.tscn" id="1_jyrbd"]
+[ext_resource type="PackedScene" uid="uid://djl68wrbtau4q" path="res://pages/menu/menu_level.tscn" id="1_kfkxy"]
+[ext_resource type="PackedScene" uid="uid://cj8k3u74ubrtj" path="res://components/shadow_caster.tscn" id="3_a2rao"]
+[ext_resource type="Script" uid="uid://dt7c5itgyrg65" path="res://GUI/scripts/Menu_screen_UI.gd" id="3_aodpp"]
+[ext_resource type="Theme" uid="uid://bo871vijrb4iy" path="res://GUI/src/themes/SHITTTTTYYY_THEMES.tres" id="3_wqbor"]
+[ext_resource type="PackedScene" uid="uid://dxn03jeyrfu8k" path="res://world_environment.tscn" id="6_4gxfe"]
+
+[sub_resource type="JSON" id="JSON_vf3ht"]
+data = ["area0"]
+
+[sub_resource type="Gradient" id="Gradient_0tiij"]
+resource_local_to_scene = true
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 0.298039, 0, 0, 0, 0.983994)
+
+[node name="Menu" type="Node"]
+metadata/_edit_horizontal_guides_ = [1148.0]
+metadata/_edit_vertical_guides_ = [1384.0, 1469.0]
+
+[node name="bg" parent="." instance=ExtResource("1_jyrbd")]
+
+[node name="menu_level" parent="." instance=ExtResource("1_kfkxy")]
+unique_name_in_owner = true
+
+[node name="Area_spawner" parent="menu_level" index="1"]
+lmao = SubResource("JSON_vf3ht")
+
+[node name="bol" parent="menu_level/CanvasGroup" index="0"]
+position = Vector2(87, 434)
+
+[node name="shape" parent="menu_level/CanvasGroup/bol" index="2"]
+visible = true
+
+[node name="Line2D" parent="menu_level/CanvasGroup/bol/Trail" index="0"]
+gradient = SubResource("Gradient_0tiij")
+
+[node name="shadow_caster" parent="menu_level/CanvasGroup/bol" index="10" instance=ExtResource("3_a2rao")]
+position = Vector2(-1.90735e-06, -2)
+active = true
+
+[node name="Screen_fader" parent="menu_level" index="3" node_paths=PackedStringArray("color_rect")]
+color_rect = NodePath("../../fade/fade")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="CanvasGroup" type="CanvasGroup" parent="ui"]
+
+[node name="UI" type="Control" parent="ui/CanvasGroup" node_paths=PackedStringArray("player")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme = ExtResource("3_wqbor")
+script = ExtResource("3_aodpp")
+player = NodePath("../../../menu_level/CanvasGroup/bol")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/CanvasGroup/UI"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -155.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ui/CanvasGroup/UI/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/shadow_offset_y = 22
+theme_override_constants/shadow_outline_size = 15
+theme_override_font_sizes/font_size = 200
+text = "Ligma bol"
+horizontal_alignment = 1
+
+[node name="press_start_label" type="Label" parent="ui/CanvasGroup/UI/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 5
+theme_override_constants/shadow_offset_y = 7
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 4
+theme_override_font_sizes/font_size = 50
+text = "[  jump to start  ]"
+horizontal_alignment = 1
+
+[node name="best_label" type="Label" parent="ui/CanvasGroup/UI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1086.0
+offset_top = 20.0
+offset_right = -58.0
+offset_bottom = 57.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 5
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 40
+text = "best:100000000"
+horizontal_alignment = 2
+
+[node name="fade" type="CanvasLayer" parent="."]
+
+[node name="fade" type="ColorRect" parent="fade"]
+unique_name_in_owner = true
+light_mask = 0
+clip_contents = true
+offset_right = 1152.0
+offset_bottom = 430.0
+scale = Vector2(1, 1.52)
+size_flags_horizontal = 4
+size_flags_vertical = 6
+color = Color(0.0666667, 0, 0.129412, 0)
+metadata/_edit_lock_ = true
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("6_4gxfe")]
+
+[editable path="menu_level"]
+[editable path="menu_level/CanvasGroup/bol/Trail"]
+[editable path="menu_level/CanvasGroup/bol/Eye_Trail"]

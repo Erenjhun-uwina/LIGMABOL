@@ -1,0 +1,9 @@
+res://pages/main/main_game.tscn
+res://GUI/src/themes/SHITTTTTYYY_THEMES.tres
+res://GUI/gradient.tres
+res://level/areas/trash_lands.tscn
+res://pages/menu/menu_screen.tscn
+res://GUI/scenes/Game_over_screen.tscn
+res://world_environment.tscn
+res://GUI/scenes/main_GUI.tscn
+res://default_bg.tscn

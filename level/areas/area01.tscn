@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://dve8bhwb84oms"]
+
+[ext_resource type="PackedScene" uid="uid://cltekrwtewqav" path="res://level/areas/platform.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://d0ueh8lq18anj" path="res://level/areas/area_temp.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://db2wyavjo83br" path="res://entity/essence.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://bm3o44nmmar6a" path="res://entity/enemies/splat_slug.tscn" id="5_x1twi"]
+
+[node name="area01" instance=ExtResource("2")]
+metadata/_edit_horizontal_guides_ = [-180.0, -305.0]
+metadata/_edit_vertical_guides_ = [127.0, 1120.0, 2816.0, 2514.0, 1314.0, 1831.0, 1868.0, 2294.0]
+
+[node name="platforms" parent="." index="0"]
+width = 2496
+
+[node name="platform3" parent="platforms" index="0" instance=ExtResource("1")]
+position = Vector2(993, 192)
+tile_w = 3
+tile_h = 12
+end_point = 1185
+
+[node name="platform4" parent="platforms" index="1" instance=ExtResource("1")]
+position = Vector2(1152, 374)
+tile_w = 21
+end_point = 2496
+
+[node name="essence2" parent="entities" index="0" instance=ExtResource("3")]
+position = Vector2(617, 298)
+
+[node name="essence3" parent="entities" index="1" instance=ExtResource("3")]
+position = Vector2(138, 324)
+
+[node name="splat" parent="entities" index="2" instance=ExtResource("5_x1twi")]
+position = Vector2(1388, 404)
+
+[node name="splat2" parent="entities" index="3" instance=ExtResource("5_x1twi")]
+position = Vector2(1869, 404)
+
+[node name="splat3" parent="entities" index="4" instance=ExtResource("5_x1twi")]
+position = Vector2(2358, 404)

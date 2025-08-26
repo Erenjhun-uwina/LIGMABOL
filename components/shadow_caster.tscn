@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj8k3u74ubrtj"]
+
+[ext_resource type="Script" uid="uid://dnfw037l13odx" path="res://entity/player/shadow_caster.gd" id="1_swaft"]
+[ext_resource type="Texture2D" uid="uid://4crvoqxahq4y" path="res://entity/assets/glow.png" id="2_c1bqr"]
+
+[node name="shadow_caster" type="RayCast2D"]
+position = Vector2(-1.66893e-06, -6)
+scale = Vector2(0.95, 0.325)
+target_position = Vector2(0, 2095.39)
+collision_mask = 4
+script = ExtResource("1_swaft")
+
+[node name="shadow" type="PointLight2D" parent="."]
+unique_name_in_owner = true
+light_mask = 32
+visibility_layer = 0
+blend_mode = 1
+range_item_cull_mask = 32
+texture = ExtResource("2_c1bqr")
+height = 7.0

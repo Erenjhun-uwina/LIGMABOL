@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://xrlmg3x86rvv"]
+
+[sub_resource type="RectangleShape2D" id="10"]
+size = Vector2(61, 55)
+
+[node name="player_detector" type="Area2D"]
+process_priority = 10000000
+position = Vector2(3, -42)
+collision_layer = 16
+collision_priority = 100000.0
+input_pickable = false
+monitorable = false
+priority = 128.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+process_priority = 100000000
+position = Vector2(13.5, 17.5)
+shape = SubResource("10")

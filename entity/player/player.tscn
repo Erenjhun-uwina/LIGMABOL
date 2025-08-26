@@ -1,0 +1,266 @@
+[gd_scene load_steps=31 format=3 uid="uid://dhvjf4k72g5d0"]
+
+[ext_resource type="Material" uid="uid://btyftdeka8tmq" path="res://materials/additive_sprite.tres" id="1"]
+[ext_resource type="Script" uid="uid://byr674nictv27" path="res://entity/player/states/player_state_manager.gd" id="2"]
+[ext_resource type="Script" uid="uid://lcpnvesa2jwr" path="res://components/scripts/Ability_manager.gd" id="2_7rhyk"]
+[ext_resource type="Script" uid="uid://c0dfjwviqyynt" path="res://entity/player/states/diving.gd" id="3"]
+[ext_resource type="Script" uid="uid://bu46wb1kjhmof" path="res://entity/player/states/casting_ability.gd" id="4"]
+[ext_resource type="Script" uid="uid://cploynqa1hbn5" path="res://entity/player/states/default.gd" id="5"]
+[ext_resource type="Script" uid="uid://bhep7h3p6py5x" path="res://entity/player/states/jumping.gd" id="6"]
+[ext_resource type="Script" uid="uid://ducm4pkc3d07d" path="res://entity/player/Laser.gd" id="7"]
+[ext_resource type="Texture2D" uid="uid://bf8agapky5s1e" path="res://entity/assets/eye_glow.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://h6nekduk4yb8" path="res://entity/assets/laser.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://kf5geakyfqs3" path="res://entity/assets/bol.png" id="10"]
+[ext_resource type="PackedScene" uid="uid://8m7klm3bbcws" path="res://components/trail.tscn" id="12"]
+[ext_resource type="Script" uid="uid://b3t8hdl2l57w" path="res://entity/player/states/falling.gd" id="13"]
+[ext_resource type="Texture2D" uid="uid://4crvoqxahq4y" path="res://entity/assets/glow.png" id="13_tr0br"]
+[ext_resource type="Script" uid="uid://b34jtowpe1i2g" path="res://entity/player/states/airborne.gd" id="14"]
+[ext_resource type="Script" uid="uid://vjnvs4cx0xq3" path="res://entity/player/player.gd" id="15"]
+[ext_resource type="Script" uid="uid://dysht60wdb0g8" path="res://components/scripts/movement.gd" id="16"]
+[ext_resource type="Script" uid="uid://cy1ymude61wwx" path="res://components/scripts/gravity.gd" id="17_5my1n"]
+[ext_resource type="Shader" uid="uid://co74ixks877t4" path="res://shaders/b_w.tres" id="19_xcbd1"]
+[ext_resource type="PackedScene" uid="uid://cj8k3u74ubrtj" path="res://components/shadow_caster.tscn" id="20_tigy1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d5nmk"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jo7ag"]
+radius = 120.004
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 1.0
+
+[sub_resource type="CircleShape2D" id="7"]
+radius = 39.0512
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vvvbi"]
+shader = ExtResource("19_xcbd1")
+shader_parameter/brightness = 0.0
+
+[sub_resource type="Curve" id="3"]
+_data = [Vector2(0, 0.172727), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="4"]
+resource_local_to_scene = true
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 0.298039, 0, 0, 0, 0.983994)
+
+[sub_resource type="Curve" id="5"]
+_data = [Vector2(0, 0.160038), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iqrs7"]
+size = Vector2(58.9107, 26.5107)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(62, 5)
+
+[node name="bol" type="CharacterBody2D" node_paths=PackedStringArray("movement", "state_m", "ability_manager", "cam")]
+process_priority = 10000000
+z_index = 2
+texture_filter = 1
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("15")
+movement = NodePath("Movement")
+state_m = NodePath("State_manager")
+ability_manager = NodePath("Ability_manager")
+cam = NodePath("")
+
+[node name="playerhitbox" type="Area2D" parent="."]
+position = Vector2(0, -32)
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerhitbox"]
+shape = SubResource("CircleShape2D_d5nmk")
+
+[node name="essence_sensor" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -31)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="essence_sensor"]
+z_index = 10
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_jo7ag")
+
+[node name="General_sensor" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -31)
+scale = Vector2(93, 93)
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="General_sensor"]
+z_index = 10
+shape = SubResource("1")
+
+[node name="in_essence_sensor" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="in_essence_sensor"]
+z_index = 10
+position = Vector2(0, -33)
+shape = SubResource("7")
+
+[node name="Ability_manager" type="Node" parent="."]
+script = ExtResource("2_7rhyk")
+player = NodePath("..")
+
+[node name="State_manager" type="Node" parent="." node_paths=PackedStringArray("entity", "curr_state")]
+script = ExtResource("2")
+entity = NodePath("..")
+curr_state = NodePath("diving")
+
+[node name="default" type="Node" parent="State_manager"]
+script = ExtResource("5")
+
+[node name="diving" type="Node" parent="State_manager"]
+script = ExtResource("3")
+
+[node name="jumping" type="Node" parent="State_manager"]
+script = ExtResource("6")
+
+[node name="casting_ability" type="Node" parent="State_manager"]
+script = ExtResource("4")
+ability_manager_path = NodePath("../../Ability_manager")
+
+[node name="airborne" type="Node" parent="State_manager"]
+script = ExtResource("14")
+
+[node name="falling" type="Node" parent="State_manager"]
+script = ExtResource("13")
+
+[node name="sprites" type="Marker2D" parent="."]
+modulate = Color(1.5, 1.5, 1.5, 1)
+
+[node name="Blast" type="Sprite2D" parent="sprites"]
+unique_name_in_owner = true
+position = Vector2(0, -32)
+texture = ExtResource("13_tr0br")
+
+[node name="body" type="Sprite2D" parent="sprites"]
+position = Vector2(70, -92)
+texture = ExtResource("10")
+centered = false
+offset = Vector2(-110, 20)
+
+[node name="eye_glow" type="Sprite2D" parent="sprites"]
+modulate = Color(1.6, 1.6, 1.2, 1)
+z_index = 2
+position = Vector2(19, -31)
+texture = ExtResource("8")
+
+[node name="Glow" type="Sprite2D" parent="sprites"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_vvvbi")
+position = Vector2(0, -32)
+texture = ExtResource("13_tr0br")
+
+[node name="Trail" parent="." instance=ExtResource("12")]
+unique_name_in_owner = true
+position = Vector2(0, -32)
+
+[node name="Line2D" parent="Trail" index="0"]
+self_modulate = Color(44.38, 46.15, 46.16, 1)
+points = PackedVector2Array(-57, -7)
+width = 60.0
+width_curve = SubResource("3")
+default_color = Color(0, 0, 0, 0)
+gradient = SubResource("4")
+
+[node name="Eye_Trail" parent="." instance=ExtResource("12")]
+unique_name_in_owner = true
+show_behind_parent = false
+position = Vector2(20, -32)
+
+[node name="Line2D" parent="Eye_Trail" index="0"]
+modulate = Color(88.76, 91.12, 91.12, 1)
+points = PackedVector2Array(-27, -63)
+width = 10.0
+width_curve = SubResource("5")
+gradient = null
+texture_mode = 2
+
+[node name="Laser" type="RayCast2D" parent="." node_paths=PackedStringArray("texture")]
+unique_name_in_owner = true
+process_priority = 2
+z_index = 32
+z_as_relative = false
+position = Vector2(20, -32)
+scale = Vector2(1.078, 1)
+enabled = false
+target_position = Vector2(0, 0)
+collision_mask = 20
+collide_with_areas = true
+script = ExtResource("7")
+texture = NodePath("texture")
+glow_text = ExtResource("13_tr0br")
+
+[node name="texture" type="TextureRect" parent="Laser"]
+modulate = Color(1.5, 1.5, 1.5, 0.73)
+material = ExtResource("1")
+offset_left = 1.0
+offset_top = -15.0
+offset_right = 1.0
+offset_bottom = 16.0
+pivot_offset = Vector2(7.42115, -1.1e+11)
+texture = ExtResource("9")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("body")]
+unique_name_in_owner = true
+script = ExtResource("16")
+body = NodePath("..")
+
+[node name="Gravity2d" type="Node" parent="." node_paths=PackedStringArray("movement")]
+process_mode = 4
+script = ExtResource("17_5my1n")
+movement = NodePath("../Movement")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+process_priority = 10000
+visible = false
+position = Vector2(0, -19)
+scale = Vector2(1.05244, 1.2825)
+shape = SubResource("RectangleShape2D_iqrs7")
+
+[node name="platform_sensor" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platform_sensor"]
+z_index = 10
+position = Vector2(0, -0.5)
+shape = SubResource("2")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -136)
+scale = Vector2(2.5, 2.1)
+
+[node name="shadow_caster" parent="." instance=ExtResource("20_tigy1")]
+position = Vector2(-1.66893e-06, -0.999999)
+active = true
+
+[connection signal="body_entered" from="essence_sensor" to="." method="_on_essence_sensor_body_entered"]
+[connection signal="body_exited" from="essence_sensor" to="." method="_on_essence_sensor_body_exited"]
+[connection signal="body_entered" from="in_essence_sensor" to="." method="_on_in_essence_sensor_body_entered"]
+[connection signal="body_entered" from="platform_sensor" to="." method="_on_platform_sensor_body_entered"]
+[connection signal="body_exited" from="platform_sensor" to="." method="_on_platform_sensor_body_exited"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+
+[editable path="Trail"]
+[editable path="Eye_Trail"]
+[editable path="shadow_caster"]

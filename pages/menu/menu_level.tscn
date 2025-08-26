@@ -1,0 +1,156 @@
+[gd_scene load_steps=20 format=3 uid="uid://djl68wrbtau4q"]
+
+[ext_resource type="Script" uid="uid://dv4nkk2gdwp81" path="res://pages/menu/scripts/menu_level.gd" id="1_6vwcn"]
+[ext_resource type="PackedScene" uid="uid://i6yj5xiqdoyk" path="res://level/areas/area0.tscn" id="2_b4x3c"]
+[ext_resource type="Script" uid="uid://xpjvu06gu0js" path="res://pages/menu/scripts/menu_player.gd" id="2_tpyq1"]
+[ext_resource type="PackedScene" uid="uid://c4jmvn7m0gmps" path="res://pages/main/main_cam.tscn" id="4_ccfhg"]
+[ext_resource type="Script" uid="uid://cdyxgaasj6y88" path="res://level/scripts/area_spawner.gd" id="5_44pyc"]
+[ext_resource type="Script" uid="uid://cwex8s4rrq0i8" path="res://pages/menu/scripts/_def_state.gd" id="10_dpuii"]
+[ext_resource type="Script" uid="uid://byr674nictv27" path="res://entity/player/states/player_state_manager.gd" id="10_p8h5d"]
+[ext_resource type="Script" uid="uid://cy1ymude61wwx" path="res://components/scripts/gravity.gd" id="10_qufk5"]
+[ext_resource type="Texture2D" uid="uid://kf5geakyfqs3" path="res://entity/assets/bol.png" id="10_v407f"]
+[ext_resource type="Texture2D" uid="uid://bf8agapky5s1e" path="res://entity/assets/eye_glow.png" id="11_03k3w"]
+[ext_resource type="Script" uid="uid://dbb1vhkocjr20" path="res://utils/screen_fader.gd" id="11_ox6ld"]
+[ext_resource type="Script" uid="uid://cof7ljstaj8mo" path="res://pages/menu/scripts/_dash.gd" id="12_fwhfp"]
+[ext_resource type="PackedScene" uid="uid://8m7klm3bbcws" path="res://components/trail.tscn" id="12_uprdd"]
+[ext_resource type="Script" uid="uid://dysht60wdb0g8" path="res://components/scripts/movement.gd" id="17_jlrrk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iqrs7"]
+size = Vector2(58.9107, 26.5107)
+
+[sub_resource type="Curve" id="Curve_3xra8"]
+_data = [Vector2(0, 0.172727), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_v4ijq"]
+resource_local_to_scene = true
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 0.298039, 0, 0, 0, 0.983994)
+
+[sub_resource type="Curve" id="Curve_kkhyq"]
+_data = [Vector2(0, 0.160038), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ahog2"]
+size = Vector2(62, 5)
+
+[node name="level" type="Node2D" node_paths=PackedStringArray("fader")]
+process_priority = 26
+script = ExtResource("1_6vwcn")
+fader = NodePath("Screen_fader")
+metadata/_edit_horizontal_guides_ = [885.0, 705.0]
+
+[node name="_Area" parent="." instance=ExtResource("2_b4x3c")]
+
+[node name="Area_spawner" type="Node" parent="." node_paths=PackedStringArray("area_1")]
+unique_name_in_owner = true
+script = ExtResource("5_44pyc")
+area_1 = NodePath("../_Area")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+light_mask = 0
+z_index = 4
+z_as_relative = false
+
+[node name="bol" type="CharacterBody2D" parent="CanvasGroup" node_paths=PackedStringArray("cam", "movement")]
+unique_name_in_owner = true
+process_priority = 10000000
+texture_filter = 1
+position = Vector2(87, 376)
+collision_mask = 4
+script = ExtResource("2_tpyq1")
+cam = NodePath("")
+movement = NodePath("Movement")
+metadata/_edit_group_ = true
+
+[node name="sprites" type="Marker2D" parent="CanvasGroup/bol"]
+
+[node name="body" type="Sprite2D" parent="CanvasGroup/bol/sprites"]
+position = Vector2(70, -92)
+texture = ExtResource("10_v407f")
+centered = false
+offset = Vector2(-110, 20)
+
+[node name="eye_glow" type="Sprite2D" parent="CanvasGroup/bol/sprites"]
+modulate = Color(1.6, 1.6, 1.2, 1)
+z_index = 2
+position = Vector2(19, -31)
+texture = ExtResource("11_03k3w")
+
+[node name="Movement" type="Node" parent="CanvasGroup/bol" node_paths=PackedStringArray("body")]
+script = ExtResource("17_jlrrk")
+body = NodePath("..")
+
+[node name="shape" type="CollisionShape2D" parent="CanvasGroup/bol"]
+process_priority = 10000
+visible = false
+position = Vector2(0, -19)
+scale = Vector2(1.05244, 1.2825)
+shape = SubResource("RectangleShape2D_iqrs7")
+
+[node name="main_cam" parent="CanvasGroup/bol" instance=ExtResource("4_ccfhg")]
+unique_name_in_owner = true
+
+[node name="Gravity2d" type="Node" parent="CanvasGroup/bol" node_paths=PackedStringArray("movement")]
+script = ExtResource("10_qufk5")
+movement = NodePath("../Movement")
+
+[node name="State_manager" type="Node" parent="CanvasGroup/bol" node_paths=PackedStringArray("entity", "curr_state")]
+script = ExtResource("10_p8h5d")
+entity = NodePath("..")
+curr_state = NodePath("init_state")
+
+[node name="init_state" type="Node" parent="CanvasGroup/bol/State_manager"]
+script = ExtResource("10_dpuii")
+
+[node name="trick" type="Node" parent="CanvasGroup/bol/State_manager"]
+unique_name_in_owner = true
+script = ExtResource("12_fwhfp")
+
+[node name="Trail" parent="CanvasGroup/bol" instance=ExtResource("12_uprdd")]
+unique_name_in_owner = true
+position = Vector2(0, -32)
+
+[node name="Line2D" parent="CanvasGroup/bol/Trail" index="0"]
+self_modulate = Color(44.38, 46.15, 46.16, 1)
+points = PackedVector2Array(-57, -7)
+width = 60.0
+width_curve = SubResource("Curve_3xra8")
+default_color = Color(0, 0, 0, 0)
+gradient = SubResource("Gradient_v4ijq")
+
+[node name="Eye_Trail" parent="CanvasGroup/bol" instance=ExtResource("12_uprdd")]
+unique_name_in_owner = true
+show_behind_parent = false
+position = Vector2(20, -32)
+
+[node name="Line2D" parent="CanvasGroup/bol/Eye_Trail" index="0"]
+modulate = Color(88.76, 91.12, 91.12, 1)
+points = PackedVector2Array(-27, -63)
+width = 10.0
+width_curve = SubResource("Curve_kkhyq")
+gradient = null
+texture_mode = 2
+
+[node name="platform_sensor" type="Area2D" parent="CanvasGroup/bol"]
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasGroup/bol/platform_sensor"]
+z_index = 10
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_ahog2")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="CanvasGroup/bol"]
+
+[node name="Screen_fader" type="Node" parent="." node_paths=PackedStringArray("color_rect")]
+script = ExtResource("11_ox6ld")
+color_rect = NodePath("")
+
+[connection signal="body_entered" from="CanvasGroup/bol/platform_sensor" to="CanvasGroup/bol" method="_on_platform_sensor_body_entered"]
+[connection signal="body_exited" from="CanvasGroup/bol/platform_sensor" to="CanvasGroup/bol" method="_on_platform_sensor_body_exited"]
+[connection signal="screen_exited" from="CanvasGroup/bol/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+
+[editable path="CanvasGroup/bol/Trail"]
+[editable path="CanvasGroup/bol/Eye_Trail"]

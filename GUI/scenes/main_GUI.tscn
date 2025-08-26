@@ -1,0 +1,212 @@
+[gd_scene load_steps=8 format=3 uid="uid://dx8onjm0x538g"]
+
+[ext_resource type="Theme" uid="uid://bo871vijrb4iy" path="res://GUI/src/themes/SHITTTTTYYY_THEMES.tres" id="1_426g7"]
+[ext_resource type="Script" uid="uid://bt1w8v8j37fwn" path="res://GUI/scripts/main_GUI.gd" id="2"]
+
+[sub_resource type="Gradient" id="Gradient_68pek"]
+offsets = PackedFloat32Array(0, 0.167513, 0.492386, 1)
+colors = PackedColorArray(0.119777, 0.119777, 0.119777, 1, 0.217054, 0.217054, 0.217054, 1, 0.516796, 0.516796, 0.516796, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lh0x8"]
+gradient = SubResource("Gradient_68pek")
+width = 370
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ftfop"]
+texture = SubResource("GradientTexture1D_lh0x8")
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1i6ud"]
+bg_color = Color(1, 0.8, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1qxb"]
+bg_color = Color(0.796243, 0.796243, 0.796243, 0.368627)
+border_width_left = 4
+border_width_top = 3
+border_width_right = 4
+border_width_bottom = 3
+border_color = Color(0.817521, 0.817521, 0.817521, 1)
+
+[node name="UI" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme = ExtResource("1_426g7")
+script = ExtResource("2")
+
+[node name="bars" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -360.0
+offset_bottom = 81.0
+grow_horizontal = 0
+size_flags_vertical = 3
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="esence_vbox" type="VBoxContainer" parent="bars"]
+process_priority = -5
+light_mask = 0
+texture_filter = 1
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+alignment = 1
+metadata/_edit_group_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="bars/esence_vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="essence_bar" type="ProgressBar" parent="bars/esence_vbox/MarginContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxTexture_ftfop")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="MarginContainer" type="MarginContainer" parent="bars/esence_vbox/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+
+[node name="essence_label" type="Label" parent="bars/esence_vbox/MarginContainer/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -1
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 20
+text = "1000000000/100000000000"
+vertical_alignment = 1
+uppercase = true
+
+[node name="morph_bar" type="ProgressBar" parent="bars/esence_vbox"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+theme_override_styles/fill = SubResource("StyleBoxFlat_1i6ud")
+show_percentage = false
+
+[node name="Distance_meter" type="Label" parent="bars/esence_vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 20
+text = "distance:99999999999"
+vertical_alignment = 1
+uppercase = true
+
+[node name="abilities" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_right = 549.0
+offset_bottom = 74.0
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="ability_vbox" type="HBoxContainer" parent="abilities"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Ability_con" type="PanelContainer" parent="abilities/ability_vbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1qxb")
+
+[node name="icon" type="TextureRect" parent="abilities/ability_vbox/Ability_con"]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Ability_con2" type="PanelContainer" parent="abilities/ability_vbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1qxb")
+
+[node name="icon" type="TextureRect" parent="abilities/ability_vbox/Ability_con2"]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Ability_con3" type="PanelContainer" parent="abilities/ability_vbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1qxb")
+
+[node name="icon" type="TextureRect" parent="abilities/ability_vbox/Ability_con3"]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Ability_con4" type="PanelContainer" parent="abilities/ability_vbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1qxb")
+
+[node name="icon" type="TextureRect" parent="abilities/ability_vbox/Ability_con4"]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Ability_con5" type="PanelContainer" parent="abilities/ability_vbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1qxb")
+
+[node name="icon" type="TextureRect" parent="abilities/ability_vbox/Ability_con5"]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Ability_con6" type="PanelContainer" parent="abilities/ability_vbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1qxb")
+
+[node name="icon" type="TextureRect" parent="abilities/ability_vbox/Ability_con6"]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Ability_con7" type="PanelContainer" parent="abilities/ability_vbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1qxb")
+
+[node name="icon" type="TextureRect" parent="abilities/ability_vbox/Ability_con7"]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Ability_con8" type="PanelContainer" parent="abilities/ability_vbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1qxb")
+
+[node name="icon" type="TextureRect" parent="abilities/ability_vbox/Ability_con8"]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5

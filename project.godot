@@ -1,0 +1,166 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="ligmav2"
+config/description="ligmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+"
+run/main_scene="res://GUI/scenes/loading_screen.tscn"
+config/features=PackedStringArray("4.4")
+run/flush_stdout_on_print=true
+config/icon="res://entity/assets/bol.png"
+config/windows_native_icon="res://bol_rYc_icon.ico"
+
+[autoload]
+
+AbilityDefinitions="*res://singletons/ability_definitions.gd"
+PlayerStats="*res://entity/player/player_stats.gd"
+SceneRefs="*res://singletons/scene_refs.gd"
+SoundManager="*res://SoundManager.tscn"
+
+[debug]
+
+gdscript/warnings/unused_signal=false
+gdscript/warnings/shadowed_variable=false
+gdscript/warnings/return_value_discarded=false
+gdscript/completion/autocomplete_setters_and_getters=true
+
+[display]
+
+window/size/mode=2
+window/size/always_on_top=true
+window/stretch/mode="viewport"
+window/vsync/vsync_mode=2
+window/size/width=1280
+window/size/height=640
+window/size/test_width=1280
+window/size/test_height=640
+
+[editor]
+
+movie_writer/mjpeg_quality=0.38
+movie_writer/movie_file="C:/Users/QCU/Documents/godot/ligma - Copy/lamooo.avi"
+movie_writer/disable_vsync=true
+movie_writer/fps=50
+
+[filesystem]
+
+import/blender/enabled=false
+
+[global]
+
+fps=false
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
+
+[input]
+
+ui_accept={
+"deadzone": 0.5,
+"events": []
+}
+ui_select={
+"deadzone": 0.5,
+"events": []
+}
+ui_focus_next={
+"deadzone": 0.5,
+"events": []
+}
+ui_focus_prev={
+"deadzone": 0.5,
+"events": []
+}
+ui_up={
+"deadzone": 0.5,
+"events": []
+}
+ui_page_up={
+"deadzone": 0.5,
+"events": []
+}
+ui_page_down={
+"deadzone": 0.5,
+"events": []
+}
+ui_home={
+"deadzone": 0.5,
+"events": []
+}
+ui_end={
+"deadzone": 0.5,
+"events": []
+}
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+pointing/emulate_mouse_from_touch=false
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="player_platform_sensor"
+2d_physics/layer_3="platform"
+2d_physics/layer_4="esssence"
+2d_physics/layer_5="enemies"
+
+[mono]
+
+project/assembly_name="ligma"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/glow/upscale_mode=0
+quality/driver/driver_name="GLES2"
+2d/snapping/use_gpu_pixel_snap=true
+threads/thread_model=2
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_clear_color=Color(0.207843, 0.207843, 0.207843, 1)
+environment/default_environment="res://default_env.tres"
+camera/show_image=true
+camera/bg_color=Color(0.14, 0.14, 0.14, 1)
+camera/per_pixel_transparency/allowed=false
+environment/glow/upscale_mode.template_release=0

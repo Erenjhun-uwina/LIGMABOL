@@ -1,0 +1,236 @@
+[gd_scene load_steps=13 format=3 uid="uid://djjay5fysrkl4"]
+
+[ext_resource type="Texture2D" uid="uid://4crvoqxahq4y" path="res://entity/assets/glow.png" id="1_h76vj"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ut3s8"]
+noise_type = 0
+seed = 6
+frequency = 0.0616
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ru1nm"]
+height = 200
+generate_mipmaps = false
+normalize = false
+noise = SubResource("FastNoiseLite_ut3s8")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_xurlc"]
+diffuse_texture = SubResource("NoiseTexture2D_ru1nm")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7jksf"]
+noise_type = 0
+seed = 6
+frequency = 0.0616
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fq7c2"]
+height = 200
+generate_mipmaps = false
+normalize = false
+noise = SubResource("FastNoiseLite_7jksf")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_1jvcm"]
+diffuse_texture = SubResource("NoiseTexture2D_fq7c2")
+
+[sub_resource type="Gradient" id="Gradient_v5rep"]
+offsets = PackedFloat32Array(0.0621622, 0.213514, 0.645946, 0.948649)
+colors = PackedColorArray(0.0216216, 0.0216216, 0.0216216, 0.978378, 0.12973, 0.12973, 0.12973, 0.87027, 0.513233, 0.513233, 0.513233, 0.533333, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bkmg7"]
+gradient = SubResource("Gradient_v5rep")
+width = 200
+
+[sub_resource type="Curve" id="Curve_ld03m"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.354545), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_00r5k"]
+curve = SubResource("Curve_ld03m")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cqqki"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(600, 1, 1)
+direction = Vector3(0, -100, 0)
+flatness = 1.0
+initial_velocity_min = 100.0
+initial_velocity_max = 271.67
+gravity = Vector3(0, -1, 0)
+attractor_interaction_enabled = false
+scale_curve = SubResource("CurveTexture_00r5k")
+color = Color(1, 1, 1, 0.42)
+
+[node name="bg" type="ParallaxBackground"]
+scroll_ignore_camera_zoom = true
+
+[node name="static" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="static"]
+custom_minimum_size = Vector2(28, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -41.0
+offset_top = -55.0
+offset_right = 1232.0
+offset_bottom = 951.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="backs" type="ParallaxLayer" parent="."]
+modulate = Color(0.745098, 0.745098, 0.745098, 0.956863)
+motion_scale = Vector2(0.1, 0)
+motion_mirroring = Vector2(1400, 0)
+
+[node name="CanvasGroup2" type="CanvasGroup" parent="backs"]
+position = Vector2(-1, 0)
+
+[node name="TextureRect" type="TextureRect" parent="backs/CanvasGroup2"]
+modulate = Color(0.596078, 0.596078, 0.596078, 1)
+texture_filter = 1
+offset_left = 374.0
+offset_top = -5.0
+offset_right = 1353.0
+offset_bottom = 244.0
+rotation = 1.5708
+texture = SubResource("CanvasTexture_xurlc")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="backs/CanvasGroup2"]
+modulate = Color(0.215686, 0.215686, 0.215686, 1)
+texture_filter = 1
+offset_left = 501.0
+offset_top = -7.0
+offset_right = 1482.0
+offset_bottom = 123.0
+rotation = 1.5708
+texture = SubResource("CanvasTexture_1jvcm")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="backs/CanvasGroup2"]
+modulate = Color(0.596078, 0.596078, 0.596078, 1)
+texture_filter = 1
+offset_left = 889.0
+offset_top = -1.0
+offset_right = 1864.0
+offset_bottom = 108.0
+rotation = 1.5708
+texture = SubResource("CanvasTexture_xurlc")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="backs/CanvasGroup2"]
+modulate = Color(0.215686, 0.215686, 0.215686, 1)
+texture_filter = 1
+offset_left = 1049.0
+offset_top = -2.0
+offset_right = 2024.0
+offset_bottom = 159.0
+rotation = 1.5708
+texture = SubResource("CanvasTexture_1jvcm")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="pillars" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.4, 0)
+motion_mirroring = Vector2(2000, 0)
+
+[node name="CanvasGroup" type="CanvasGroup" parent="pillars"]
+
+[node name="TextureRect" type="TextureRect" parent="pillars/CanvasGroup"]
+texture_filter = 1
+offset_left = 1294.0
+offset_top = -11.0
+offset_right = 2266.0
+offset_bottom = 113.0
+rotation = 1.5708
+texture = SubResource("CanvasTexture_xurlc")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="pillars/CanvasGroup"]
+modulate = Color(0.435294, 0.435294, 0.435294, 1)
+texture_filter = 1
+offset_left = 1472.0
+offset_top = -11.0
+offset_right = 2444.0
+offset_bottom = 213.0
+rotation = 1.5708
+texture = SubResource("CanvasTexture_1jvcm")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CanvasGroup3" type="CanvasGroup" parent="pillars"]
+
+[node name="TextureRect" type="TextureRect" parent="pillars/CanvasGroup3"]
+texture_filter = 1
+offset_left = 24.0
+offset_top = 2.0
+offset_right = 986.0
+offset_bottom = 77.0
+rotation = 1.5708
+texture = SubResource("CanvasTexture_xurlc")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="pillars/CanvasGroup3"]
+modulate = Color(0.435294, 0.435294, 0.435294, 1)
+texture_filter = 1
+offset_left = 66.0
+offset_top = 2.0
+offset_right = 1038.0
+offset_bottom = 44.0
+rotation = 1.5708
+texture = SubResource("CanvasTexture_1jvcm")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CanvasGroup2" type="CanvasGroup" parent="pillars"]
+position = Vector2(-1, 0)
+
+[node name="TextureRect" type="TextureRect" parent="pillars/CanvasGroup2"]
+texture_filter = 1
+offset_left = 749.0
+offset_right = 1721.0
+offset_bottom = 236.0
+rotation = 1.5708
+texture = SubResource("CanvasTexture_xurlc")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="pillars/CanvasGroup2"]
+modulate = Color(0.435294, 0.435294, 0.435294, 1)
+texture_filter = 1
+offset_left = 833.0
+offset_right = 1805.0
+offset_bottom = 130.0
+rotation = 1.5708
+texture = SubResource("CanvasTexture_1jvcm")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="static2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="static2"]
+texture_filter = 1
+offset_left = 1252.0
+offset_top = -54.0
+offset_right = 2257.0
+offset_bottom = 1256.0
+rotation = 1.5708
+texture = SubResource("GradientTexture1D_bkmg7")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="static2"]
+position = Vector2(616, 865)
+amount = 200
+texture = ExtResource("1_h76vj")
+preprocess = 5.0
+visibility_rect = Rect2(-100, -400, 200, 400)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_cqqki")

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c4jmvn7m0gmps"]
+
+[node name="main_cam" type="Camera2D"]
+position = Vector2(501, -126)
+current = true
+limit_top = 56
+limit_bottom = 886
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+editor_draw_limits = true

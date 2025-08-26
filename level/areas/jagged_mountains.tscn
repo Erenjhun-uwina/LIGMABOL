@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://b73fg4a1ubdg"]
+
+[ext_resource type="PackedScene" uid="uid://db2wyavjo83br" path="res://entity/essence.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://d0ueh8lq18anj" path="res://level/areas/area_temp.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://cltekrwtewqav" path="res://level/areas/platform.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://cgmvsxt2gtn6t" path="res://entity/enemies/pincher.tscn" id="5_l04r3"]
+[ext_resource type="PackedScene" uid="uid://cdy0ptucijt73" path="res://entity/enemies/ted.tscn" id="6"]
+
+[node name="_Area" instance=ExtResource("2")]
+
+[node name="platforms" parent="." index="0"]
+width = 3008
+
+[node name="platform" parent="platforms" index="0" instance=ExtResource("3")]
+position = Vector2(3, 256)
+end_point = 131
+
+[node name="platform3" parent="platforms" index="1" instance=ExtResource("3")]
+position = Vector2(515, 148)
+tile_h = 11
+end_point = 643
+
+[node name="platform2" parent="platforms" index="2" instance=ExtResource("3")]
+position = Vector2(125, 382)
+tile_w = 4
+tile_h = 8
+end_point = 381
+
+[node name="platform4" parent="platforms" index="3" instance=ExtResource("3")]
+position = Vector2(1218, 255)
+end_point = 1346
+
+[node name="platform5" parent="platforms" index="4" instance=ExtResource("3")]
+position = Vector2(1406, 447)
+tile_w = 5
+tile_h = 7
+end_point = 1726
+
+[node name="platform6" parent="platforms" index="5" instance=ExtResource("3")]
+position = Vector2(636, 416)
+tile_w = 7
+tile_h = 8
+end_point = 1084
+
+[node name="platform7" parent="platforms" index="6" instance=ExtResource("3")]
+position = Vector2(1856, 416)
+tile_h = 8
+end_point = 1984
+
+[node name="platform8" parent="platforms" index="7" instance=ExtResource("3")]
+position = Vector2(2688, 256)
+tile_w = 5
+end_point = 3008
+
+[node name="entities" parent="." index="1"]
+position = Vector2(192, 79)
+
+[node name="essence" parent="entities" index="0" instance=ExtResource("1")]
+position = Vector2(856, 340)
+
+[node name="essence2" parent="entities" index="1" instance=ExtResource("1")]
+position = Vector2(1282, 223)
+
+[node name="essence3" parent="entities" index="2" instance=ExtResource("1")]
+position = Vector2(2114, 221)
+
+[node name="essence4" parent="entities" index="3" instance=ExtResource("1")]
+position = Vector2(2434, 156)
+
+[node name="essence5" parent="entities" index="4" instance=ExtResource("1")]
+position = Vector2(2755, 30)
+
+[node name="ted" parent="entities" index="5" instance=ExtResource("6")]
+position = Vector2(928, -5674)
+
+[node name="ted2" parent="entities" index="6" instance=ExtResource("6")]
+position = Vector2(12, 64)
+
+[node name="ted3" parent="entities" index="7" instance=ExtResource("6")]
+position = Vector2(1856, 352)
+
+[node name="ted5" parent="entities" index="8" instance=ExtResource("6")]
+position = Vector2(1408, 416)
+
+[node name="ted4" parent="entities" index="9" instance=ExtResource("6")]
+position = Vector2(2752, 288)
+
+[node name="pincher" parent="entities" index="10" instance=ExtResource("5_l04r3")]
+position = Vector2(2943, 288)
+
+[node name="v_notifier" parent="." index="2"]
+position = Vector2(92.125, -4.99998)
+scale = Vector2(3.2875, 2.7)

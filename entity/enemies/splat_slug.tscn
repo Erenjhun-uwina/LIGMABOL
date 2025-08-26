@@ -1,0 +1,147 @@
+[gd_scene load_steps=19 format=3 uid="uid://bm3o44nmmar6a"]
+
+[ext_resource type="Script" uid="uid://imnhina60801" path="res://entity/enemies/scripts/splat_slug.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://ws63r4be70f0" path="res://entity/assets/splat_spritesheet.png" id="4"]
+[ext_resource type="Script" uid="uid://dysht60wdb0g8" path="res://components/scripts/movement.gd" id="5_43cvc"]
+[ext_resource type="PackedScene" uid="uid://cj8k3u74ubrtj" path="res://components/shadow_caster.tscn" id="5_oq1rp"]
+[ext_resource type="Script" uid="uid://cy1ymude61wwx" path="res://components/scripts/gravity.gd" id="5_pqoj6"]
+
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("4")
+region = Rect2(0, 0, 210, 100)
+
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("4")
+region = Rect2(210, 0, 210, 100)
+
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("4")
+region = Rect2(420, 0, 210, 100)
+
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("4")
+region = Rect2(0, 100, 210, 100)
+
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("4")
+region = Rect2(210, 100, 210, 100)
+
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("4")
+region = Rect2(420, 100, 210, 100)
+
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("4")
+region = Rect2(0, 200, 210, 100)
+
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("4")
+region = Rect2(210, 200, 210, 100)
+
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("4")
+region = Rect2(420, 200, 210, 100)
+
+[sub_resource type="SpriteFrames" id="15"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("9")
+}, {
+"duration": 1.0,
+"texture": SubResource("10")
+}, {
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}],
+"loop": false,
+"name": &"splat",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(108, 61.375)
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(85.25, 11.25)
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(68, 11.5)
+
+[node name="splat" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("2")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(51, -49)
+sprite_frames = SubResource("15")
+animation = &"splat"
+autoplay = "default"
+
+[node name="player_detector" type="Area2D" parent="."]
+process_priority = 13
+position = Vector2(0, -47)
+collision_layer = 16
+input_pickable = false
+monitorable = false
+priority = 14.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detector"]
+position = Vector2(-7, 0.6875)
+shape = SubResource("2")
+one_way_collision_margin = 0.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="player_detector"]
+position = Vector2(45.375, 39.25)
+shape = SubResource("3")
+disabled = true
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("5_43cvc")
+body = NodePath("..")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -8.5)
+shape = SubResource("1")
+
+[node name="Gravity2d" type="Node" parent="." node_paths=PackedStringArray("movement")]
+script = ExtResource("5_pqoj6")
+movement = NodePath("../Movement")
+
+[node name="shadow_caster" parent="." instance=ExtResource("5_oq1rp")]
+
+[node name="shadow" parent="shadow_caster" index="0"]
+position = Vector2(-2.86102e-06, 13.8462)
+scale = Vector2(1.52632, 1.03846)
+
+[connection signal="area_entered" from="player_detector" to="." method="_on_player_detector_area_entered"]
+[connection signal="area_exited" from="player_detector" to="." method="_on_player_detector_area_exited"]
+[connection signal="body_entered" from="player_detector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="player_detector" to="." method="_on_player_detector_body_exited"]
+
+[editable path="shadow_caster"]

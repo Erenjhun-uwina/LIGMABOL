@@ -1,0 +1,135 @@
+[gd_scene load_steps=16 format=3 uid="uid://cdy0ptucijt73"]
+
+[ext_resource type="Texture2D" uid="uid://d1oi35d7hnlmh" path="res://entity/assets/tadpoles.png" id="2"]
+[ext_resource type="Script" uid="uid://d3vs3v8n6h40f" path="res://entity/enemies/scripts/ted.gd" id="3"]
+[ext_resource type="Script" uid="uid://dysht60wdb0g8" path="res://components/scripts/movement.gd" id="4"]
+[ext_resource type="Script" uid="uid://cy1ymude61wwx" path="res://components/scripts/gravity.gd" id="4_sgp4u"]
+[ext_resource type="PackedScene" uid="uid://cj8k3u74ubrtj" path="res://components/shadow_caster.tscn" id="5_saqy5"]
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("2")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("2")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("2")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("2")
+region = Rect2(100, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("2")
+region = Rect2(200, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("2")
+region = Rect2(0, 200, 100, 100)
+
+[sub_resource type="SpriteFrames" id="5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}],
+"loop": false,
+"name": &"default",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}, {
+"duration": 1.0,
+"texture": SubResource("9")
+}],
+"loop": false,
+"name": &"splat",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hh7f"]
+size = Vector2(60, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xgap"]
+size = Vector2(60, 5)
+
+[node name="ted" type="CharacterBody2D"]
+process_priority = 10000
+collision_layer = 16
+collision_mask = 4
+collision_priority = 1000.0
+floor_stop_on_slope = false
+script = ExtResource("3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, -42)
+sprite_frames = SubResource("5")
+
+[node name="platform_cast" type="RayCast2D" parent="."]
+position = Vector2(48, -6)
+target_position = Vector2(0, 90)
+collision_mask = 4
+
+[node name="front_cast" type="RayCast2D" parent="."]
+position = Vector2(48, -6)
+target_position = Vector2(32, 0)
+collision_mask = 20
+collide_with_areas = true
+
+[node name="player_detector" type="Area2D" parent="."]
+process_priority = 10000000
+position = Vector2(3, -42)
+collision_layer = 16
+collision_priority = 100000.0
+input_pickable = false
+monitorable = false
+priority = 128.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detector"]
+process_priority = 100000000
+position = Vector2(13, 20)
+shape = SubResource("RectangleShape2D_2hh7f")
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("4")
+body = NodePath("..")
+
+[node name="Gravity2d" type="Node" parent="." node_paths=PackedStringArray("movement")]
+script = ExtResource("4_sgp4u")
+movement = NodePath("../Movement")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+position = Vector2(4, -1)
+shape = SubResource("RectangleShape2D_7xgap")
+
+[node name="shadow_caster" parent="." instance=ExtResource("5_saqy5")]
+position = Vector2(9, 8.34465e-07)
+
+[node name="shadow" parent="shadow_caster" index="0"]
+position = Vector2(-6.31579, -1.53846)
+scale = Vector2(1.13158, 0.576923)
+
+[connection signal="area_entered" from="player_detector" to="." method="_on_player_detector_area_entered"]
+
+[editable path="shadow_caster"]

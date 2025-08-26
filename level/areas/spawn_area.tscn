@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://k4iow54ixnfi"]
+
+[ext_resource type="PackedScene" uid="uid://d0ueh8lq18anj" path="res://level/areas/area_temp.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cltekrwtewqav" path="res://level/areas/platform.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bm3o44nmmar6a" path="res://entity/enemies/splat_slug.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://db2wyavjo83br" path="res://entity/essence.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://cgmvsxt2gtn6t" path="res://entity/enemies/pincher.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://cdy0ptucijt73" path="res://entity/enemies/ted.tscn" id="6"]
+
+[node name="spawn area" instance=ExtResource("1")]
+
+[node name="platforms" parent="." index="0"]
+show_behind_parent = true
+width = 4425
+
+[node name="platform" parent="platforms" index="0" instance=ExtResource("2")]
+position = Vector2(-122, 328)
+tile_w = 28
+tile_h = 9
+end_point = 1670
+
+[node name="platform2" parent="platforms" index="1" instance=ExtResource("2")]
+position = Vector2(1769, 574)
+tile_w = 5
+tile_h = 4
+end_point = 2089
+
+[node name="platform4" parent="platforms" index="2" instance=ExtResource("2")]
+position = Vector2(2569, 590)
+tile_w = 7
+tile_h = 4
+end_point = 3017
+
+[node name="platform5" parent="platforms" index="3" instance=ExtResource("2")]
+position = Vector2(3465, 510)
+tile_w = 15
+tile_h = 5
+end_point = 4425
+
+[node name="entities" parent="." index="1"]
+show_behind_parent = true
+position = Vector2(360, 0)
+
+[node name="essence3" parent="entities" index="0" instance=ExtResource("4")]
+position = Vector2(1936, 635)
+
+[node name="essence4" parent="entities" index="1" instance=ExtResource("4")]
+position = Vector2(2928, 635)
+
+[node name="splat" parent="entities" index="2" instance=ExtResource("3")]
+position = Vector2(3504, 475)
+
+[node name="pincher" parent="entities" index="3" instance=ExtResource("5")]
+position = Vector2(3920, 475)
+
+[node name="body" parent="entities" index="4" instance=ExtResource("6")]
+position = Vector2(1682, 564)
+
+[node name="body2" parent="entities" index="5" instance=ExtResource("6")]
+position = Vector2(2228, 628)
+
+[node name="body3" parent="entities" index="6" instance=ExtResource("6")]
+position = Vector2(3815, 563)
+
+[node name="v_notifier" parent="." index="2"]
+position = Vector2(18.5, 47.5)
+scale = Vector2(1.75, 1.35)
+
+[editable path="entities/splat"]
+[editable path="entities/splat/shadow_caster"]
+[editable path="entities/pincher"]
+[editable path="entities/pincher/shadow_caster"]

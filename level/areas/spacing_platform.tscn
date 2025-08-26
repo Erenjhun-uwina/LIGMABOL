@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://be8tibhs17rjw"]
+
+[ext_resource type="Script" uid="uid://c4efjgnt0s3xb" path="res://level/scripts/platform.gd" id="1_mtbe6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f08ln"]
+resource_local_to_scene = true
+size = Vector2(128, 576)
+
+[node name="spacing_platform" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_mtbe6")
+tile_w = 2
+end_point = 128
+metadata/_edit_vertical_guides_ = [128.0]
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(64, 352)
+shape = SubResource("RectangleShape2D_f08ln")
+disabled = true

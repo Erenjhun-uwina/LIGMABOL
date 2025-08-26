@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://cltekrwtewqav"]
+
+[ext_resource type="Texture2D" uid="uid://dpjye4pciyl8k" path="res://entity/assets/platform_tilesheet.png" id="1"]
+[ext_resource type="Script" uid="uid://c4efjgnt0s3xb" path="res://level/scripts/platform.gd" id="2"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ay5y"]
+resource_name = "platform"
+texture = ExtResource("1")
+texture_region_size = Vector2i(64, 64)
+2:0/0 = 0
+3:0/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+4:0/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_3elk1"]
+tile_size = Vector2i(64, 64)
+uv_clipping = true
+sources/0 = SubResource("TileSetAtlasSource_7ay5y")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2b2rg"]
+resource_local_to_scene = true
+size = Vector2(128, 576)
+
+[node name="platform" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("2")
+tile_w = 2
+end_point = 128
+metadata/_edit_vertical_guides_ = [128.0]
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+
+[node name="TileMap" type="TileMap" parent="CanvasGroup"]
+unique_name_in_owner = true
+light_mask = 32
+visibility_layer = 2
+texture_filter = 1
+tile_set = SubResource("TileSet_3elk1")
+cell_quadrant_size = 100
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 1, 131072, 65536, 2, 196608, 65536, 2, 262144, 65536, 2, 327680, 65536, 2, 393216, 65536, 2, 458752, 65536, 2, 524288, 65536, 2, 589824, 65536, 2, 1, 262144, 0, 65537, 262144, 1, 131073, 262144, 2, 196609, 262144, 2, 262145, 262144, 2, 327681, 262144, 2, 393217, 262144, 2, 458753, 262144, 2, 524289, 262144, 2, 589825, 262144, 2)
+
+[node name="collider" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(64, 352)
+shape = SubResource("RectangleShape2D_2b2rg")

@@ -1,0 +1,110 @@
+[gd_scene load_steps=12 format=3 uid="uid://bwr6csudftd3p"]
+
+[ext_resource type="PackedScene" uid="uid://b4tdi66lrg04" path="res://pages/main/level.tscn" id="3_pv3p4"]
+[ext_resource type="Script" uid="uid://d0lym6tr1cv2i" path="res://utils/fade.gd" id="4_6dshr"]
+[ext_resource type="PackedScene" uid="uid://dx8onjm0x538g" path="res://GUI/scenes/main_GUI.tscn" id="5_b1gjx"]
+[ext_resource type="PackedScene" uid="uid://bcnyo1si6nbtf" path="res://GUI/scenes/morph_screen.tscn" id="6_lx4l2"]
+[ext_resource type="PackedScene" uid="uid://cjcxujjfec6xo" path="res://GUI/scenes/Game_over_screen.tscn" id="7_8s6vl"]
+[ext_resource type="PackedScene" uid="uid://dxn03jeyrfu8k" path="res://world_environment.tscn" id="7_n12dr"]
+[ext_resource type="PackedScene" uid="uid://4nm524eh4jv1" path="res://GUI/scenes/pause_screen.tscn" id="8_16d01"]
+[ext_resource type="PackedScene" uid="uid://djjay5fysrkl4" path="res://default_bg.tscn" id="10_v3q85"]
+[ext_resource type="Script" uid="uid://dbb1vhkocjr20" path="res://utils/screen_fader.gd" id="10_vgk3l"]
+
+[sub_resource type="Gradient" id="Gradient_jd114"]
+resource_local_to_scene = true
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 0.298039, 0, 0, 0, 0.983994)
+
+[sub_resource type="JSON" id="JSON_1hpe8"]
+data = ["area0", "area69", "area0", "bridge02", "area01", "area0", "bridge01", "jagged_mountains", "area0", "bridge02", "area01", "area0", "bridge01", "area0", "flappy_bird_arena", "area0", "bridge02"]
+
+[node name="v_con" type="Node"]
+metadata/_edit_horizontal_guides_ = [648.0, 890.0]
+
+[node name="level" parent="." instance=ExtResource("3_pv3p4")]
+unique_name_in_owner = true
+process_mode = 1
+
+[node name="platform" parent="level/spawn area/platforms" index="0"]
+position = Vector2(-122, 394)
+
+[node name="entities" parent="level/spawn area" index="1"]
+unique_name_in_owner = false
+
+[node name="player_detector" parent="level/spawn area/entities/splat" index="1"]
+priority = 14
+
+[node name="bol" parent="level" index="1" node_paths=PackedStringArray("cam")]
+position = Vector2(37, 346)
+cam = NodePath("main_cam")
+
+[node name="Line2D" parent="level/bol/Trail" index="0"]
+gradient = SubResource("Gradient_jd114")
+
+[node name="main_cam" parent="level/bol" index="16"]
+light_mask = 0
+
+[node name="Area_spawner" parent="level" index="2"]
+lmao = SubResource("JSON_1hpe8")
+
+[node name="UI_layer" type="CanvasLayer" parent="."]
+
+[node name="UIs" type="CanvasGroup" parent="UI_layer"]
+unique_name_in_owner = true
+
+[node name="fade" type="ColorRect" parent="UI_layer/UIs"]
+unique_name_in_owner = true
+light_mask = 0
+clip_contents = true
+offset_right = 1152.0
+offset_bottom = 430.0
+scale = Vector2(1, 1.52)
+size_flags_horizontal = 4
+size_flags_vertical = 6
+color = Color(0, 0, 0.00392157, 0)
+script = ExtResource("4_6dshr")
+
+[node name="UI" parent="UI_layer/UIs" groups=["UIs_hidden_on_game_over"] instance=ExtResource("5_b1gjx")]
+unique_name_in_owner = true
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Morph_screen" parent="UI_layer/UIs" groups=["UIs_hidden_on_game_over", "UIs_hidden_on_pause"] instance=ExtResource("6_lx4l2")]
+visible = false
+
+[node name="Game_over" parent="UI_layer/UIs" instance=ExtResource("7_8s6vl")]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="pause_screen" parent="UI_layer/UIs" groups=["UIs_hidden_on_game_over"] instance=ExtResource("8_16d01")]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+offset_right = 1151.0
+offset_bottom = 650.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Screen_fader" type="Node" parent="." node_paths=PackedStringArray("color_rect")]
+unique_name_in_owner = true
+script = ExtResource("10_vgk3l")
+color_rect = NodePath("../UI_layer/UIs/fade")
+
+[node name="bg" parent="." instance=ExtResource("10_v3q85")]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("7_n12dr")]
+
+[editable path="level"]
+[editable path="level/spawn area"]
+[editable path="level/spawn area/entities/splat"]
+[editable path="level/spawn area/entities/splat/shadow_caster"]
+[editable path="level/spawn area/entities/pincher"]
+[editable path="level/spawn area/entities/pincher/shadow_caster"]
+[editable path="level/bol"]
+[editable path="level/bol/Trail"]
+[editable path="level/bol/Eye_Trail"]
+[editable path="level/bol/shadow_caster"]
+[editable path="UI_layer/UIs/Game_over"]

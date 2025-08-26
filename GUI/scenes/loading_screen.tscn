@@ -1,0 +1,120 @@
+[gd_scene load_steps=14 format=3 uid="uid://bfykcot3atf0i"]
+
+[ext_resource type="Script" uid="uid://d336ckmxyv8v5" path="res://utils/loading_screen.gd" id="1_huyex"]
+[ext_resource type="Texture2D" uid="uid://4crvoqxahq4y" path="res://entity/assets/glow.png" id="2_nmpk2"]
+[ext_resource type="Environment" uid="uid://obpd1v8t4scs" path="res://main_env.tres" id="3_shfii"]
+[ext_resource type="Script" uid="uid://buxy6lk83a5ta" path="res://GUI/scripts/loading_Sprite.gd" id="4_ccplx"]
+[ext_resource type="Texture2D" uid="uid://kf5geakyfqs3" path="res://entity/assets/bol.png" id="5_wvpt0"]
+[ext_resource type="Texture2D" uid="uid://bf8agapky5s1e" path="res://entity/assets/eye_glow.png" id="6_pkhkm"]
+[ext_resource type="Theme" uid="uid://bo871vijrb4iy" path="res://GUI/src/themes/SHITTTTTYYY_THEMES.tres" id="7_upbqt"]
+[ext_resource type="Script" uid="uid://cbejdsfhj1xes" path="res://utils/loader.gd" id="8_gmiyb"]
+
+[sub_resource type="Gradient" id="Gradient_p8k4v"]
+offsets = PackedFloat32Array(0, 0.3, 0.852632, 1)
+colors = PackedColorArray(0.0687985, 0.0687982, 0.0687983, 1, 0.431535, 0.431535, 0.431535, 1, 0.907942, 0.907942, 0.907942, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lkjw1"]
+gradient = SubResource("Gradient_p8k4v")
+
+[sub_resource type="Curve" id="Curve_umsy5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.354545), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_00r5k"]
+curve = SubResource("Curve_umsy5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kxvtl"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(600, 1, 1)
+direction = Vector3(0, -100, 0)
+flatness = 1.0
+initial_velocity_min = 100.0
+initial_velocity_max = 271.67
+gravity = Vector3(0, -1, 0)
+attractor_interaction_enabled = false
+scale_curve = SubResource("CurveTexture_00r5k")
+color = Color(1, 1, 1, 0.42)
+
+[node name="Node" type="Node" node_paths=PackedStringArray("label", "bg", "loader")]
+script = ExtResource("1_huyex")
+label = NodePath("Label")
+bg = NodePath("bg")
+loader = NodePath("Loader")
+main_scene = "res://pages/main/main_game.tscn"
+menu_scene = "res://pages/menu/menu_screen.tscn"
+metadata/_edit_horizontal_guides_ = [-75.0, -3.0]
+metadata/_edit_vertical_guides_ = [1150.0, 46.0, 576.0]
+
+[node name="bg" type="Marker2D" parent="."]
+position = Vector2(0, -256)
+
+[node name="TextureRect" type="TextureRect" parent="bg"]
+z_as_relative = false
+texture_filter = 1
+offset_left = 1164.0
+offset_top = 2.0
+offset_right = 2070.0
+offset_bottom = 1173.0
+rotation = 1.5708
+texture = SubResource("GradientTexture1D_lkjw1")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="bg"]
+position = Vector2(569, 869)
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_kxvtl")
+texture = ExtResource("2_nmpk2")
+preprocess = 5.0
+visibility_rect = Rect2(-100, -400, 200, 400)
+local_coords = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("3_shfii")
+
+[node name="sprites" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(572, 283)
+scale = Vector2(3, 3)
+script = ExtResource("4_ccplx")
+metadata/_edit_group_ = true
+
+[node name="body" type="Sprite2D" parent="sprites"]
+position = Vector2(71, -61.6667)
+texture = ExtResource("5_wvpt0")
+centered = false
+offset = Vector2(-110, 20)
+
+[node name="eye_glow" type="Sprite2D" parent="sprites"]
+unique_name_in_owner = true
+modulate = Color(1.6, 1.6, 1.2, 1)
+z_index = 2
+position = Vector2(20, -0.333298)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("6_pkhkm")
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -289.0
+offset_top = 32.5
+offset_right = 289.0
+offset_bottom = 291.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("7_upbqt")
+theme_override_colors/font_color = Color(0.198796, 0.0604323, 0.296562, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/font_size = 200
+text = "0%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Loader" type="Node" parent="."]
+script = ExtResource("8_gmiyb")
