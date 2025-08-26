@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://baexh31wt8i3c"]
+
+[ext_resource type="Script" uid="uid://bn777lyal5ny3" path="res://singletons/SoundManager.gd" id="1_lx8om"]
+[ext_resource type="AudioStream" uid="uid://b0i6gmeql5iud" path="res://level/assets/audios/fight.wav" id="1_n1l0b"]
+
+[node name="Node" type="Node"]
+process_mode = 1
+script = ExtResource("1_lx8om")
+
+[node name="bg_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_n1l0b")

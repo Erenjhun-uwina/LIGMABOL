@@ -1,0 +1,28 @@
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://obpd1v8t4scs"]
+
+[sub_resource type="Gradient" id="4"]
+offsets = PackedFloat32Array(0.003861, 0.598456, 0.857143, 1)
+colors = PackedColorArray(0.0692725, 0.0114441, 0.117188, 1, 0.589844, 0.244232, 0.244232, 1, 1, 0.868774, 0.160156, 1, 1, 0.992676, 0.953125, 1)
+
+[sub_resource type="GradientTexture2D" id="5"]
+gradient = SubResource("4")
+
+[resource]
+background_mode = 3
+background_energy_multiplier = 0.0
+ambient_light_source = 1
+ambient_light_energy = 13.66
+reflected_light_source = 1
+glow_enabled = true
+glow_levels/1 = 0.51
+glow_levels/2 = 7.08
+glow_levels/3 = 0.8
+glow_levels/5 = 0.0
+glow_strength = 0.98
+glow_blend_mode = 1
+glow_hdr_threshold = 0.65
+glow_hdr_scale = 1.23
+glow_hdr_luminance_cap = 178.9
+fog_light_energy = 9.5
+adjustment_enabled = true
+adjustment_color_correction = SubResource("5")
